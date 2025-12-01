@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import type {Car} from '../types';
 
 interface CarTableProps {
@@ -34,14 +34,14 @@ const CarTable: React.FC<CarTableProps> = ({
     const dragStartWidth = useRef(0);
 
     const columns = [
-        { key: 'brand', label: 'Марка' },
-        { key: 'model', label: 'Модель' },
-        { key: 'year', label: 'Год' },
-        { key: 'price', label: 'Цена' },
-        { key: 'mileage', label: 'Пробег' },
-        { key: 'color', label: 'Цвет' },
-        { key: 'vin', label: 'VIN' },
-        { key: 'actions', label: 'Действия' }
+        {key: 'brand', label: 'Марка'},
+        {key: 'model', label: 'Модель'},
+        {key: 'year', label: 'Год'},
+        {key: 'price', label: 'Цена'},
+        {key: 'mileage', label: 'Пробег'},
+        {key: 'color', label: 'Цвет'},
+        {key: 'vin', label: 'VIN'},
+        {key: 'actions', label: 'Действия'}
     ];
 
     const handleMouseDown = (columnKey: string, e: React.MouseEvent) => {
@@ -89,15 +89,15 @@ const CarTable: React.FC<CarTableProps> = ({
     };
 
     return (
-        <div className="overflow-x-auto bg-white shadow rounded-lg">
+        <div className="w-[1500px] bg-white shadow rounded-lg">
             <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                 <tr>
                     {columns.map((column) => (
                         <th
                             key={column.key}
-                            className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer select-none relative"
-                            style={{ width: columnWidths[column.key] }}
+                            className="px-6 py-3 text-left text-base font-medium text-gray-500 uppercase tracking-wider cursor-pointer select-none relative"
+                            style={{width: columnWidths[column.key]}}
                             onClick={() => column.key !== 'actions' && onSort(column.key)}
                         >
                             <div className="flex items-center justify-between">
@@ -123,34 +123,34 @@ const CarTable: React.FC<CarTableProps> = ({
                 <tbody className="bg-white divide-y divide-gray-200">
                 {cars.map((car) => (
                     <tr key={car.id} className="hover:bg-gray-50">
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        <td className="px-6 py-4 whitespace-nowrap text-xl text-gray-900">
                             {car.brand}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        <td className="px-6 py-4 whitespace-nowrap text-base text-gray-900">
                             {car.model}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        <td className="px-6 py-4 whitespace-nowrap text-base text-gray-900">
                             {car.year}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        <td className="px-6 py-4 whitespace-nowrap text-base text-gray-900">
                             {formatPrice(car.price)}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        <td className="px-6 py-4 whitespace-nowrap text-base text-gray-900">
                             {formatMileage(car.mileage)}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        <td className="px-6 py-4 whitespace-nowrap text-base text-gray-900">
                             <div className="flex items-center">
                                 <div
                                     className="w-4 h-4 rounded-full mr-2"
-                                    style={{ backgroundColor: car.color.toLowerCase() }}
+                                    style={{backgroundColor: car.color.toLowerCase()}}
                                 />
                                 {car.color}
                             </div>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-mono text-gray-900">
+                        <td className="px-6 py-4 whitespace-nowrap text-base font-mono text-gray-900">
                             {car.vin}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                        <td className="px-6 py-4 whitespace-nowrap text-base font-medium">
                             <button
                                 onClick={() => onEdit(car)}
                                 className="text-blue-600 hover:text-blue-900 mr-4"

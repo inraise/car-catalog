@@ -1,73 +1,108 @@
-# React + TypeScript + Vite
+# Каталог автомобилей
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Веб-приложение для управления каталогом автомобилей с авторизацией.
 
-Currently, two official plugins are available:
+## Технологии
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Frontend
+- React 18 + TypeScript
+- Vite
+- Tailwind CSS
+- React Router DOM
+- React Hook Form
+- Axios
 
-## React Compiler
+### Backend
+- Node.js + Express
+- TypeScript
+- PostgreSQL
+- JWT аутентификация
+- bcryptjs для хеширования паролей
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 📋 Предварительные требования
 
-## Expanding the ESLint configuration
+- Node.js (версия 16 или выше)
+- PostgreSQL (версия 12 или выше)
+- npm
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🛠 Установка и запуск
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### 1. Клонирование и установка зависимостей
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+#### Установите зависимости для всех проектов
+npm run install-all
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### 2. Настройка базы данных PostgreSQL
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+#### Установите PostgreSQL
+#### Создайте базу данных:
+CREATE DATABASE car_catalog;
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+#### Настройте подключение в файле .env
+###### DB_HOST=localhost
+###### DB_PORT=5434
+###### DB_NAME=car_catalog
+###### DB_USER=ваш_логин
+###### DB_PASSWORD=ваш_пароль
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### 3. Инициализация базы данных
+
+###### cd backend
+###### npm run migrate
+###### npm run seed
+
+### 4. Запуск приложения
+npm run dev
+
+### Приложение будет доступно:
+
+##### Frontend: http://localhost:3000
+##### Backend API: http://localhost:5000
+
+### Тестовые пользователи
+
+##### После выполнения seed скрипта будут созданы два пользователя:
+
+###### Обычный пользователь:
+
+Email: test@test.com
+Пароль: password123
+###### Администратор:
+
+Email: admin@admin.com
+Пароль: password123
+
+### Структура проекта
+##### car-catalog/
+##### ├── backend/              # Node.js + Express сервер
+##### │   ├── src/
+##### │   │   ├── db/          # Конфигурация и миграции БД
+##### │   │   ├── middleware/  # Middleware (аутентификация)
+##### │   │   ├── routes/      # API маршруты
+##### │   │   └── types/       # TypeScript типы
+##### │   └── package.json
+##### ├── frontend/            # React приложение
+##### │   ├── src/
+##### │   │   ├── api/         # API клиенты
+##### │   │   ├── components/  # React компоненты
+##### │   │   ├── context/     # React контекст (Auth)
+##### │   │   ├── pages/       # Страницы приложения
+##### │   │   └── types/       # TypeScript типы
+##### │   └── package.json
+##### └── package.json         # Корневой package.json
+
+### API Endpoints
+
+#### Аутентификация
+
+##### POST /api/auth/register - Регистрация
+##### POST /api/auth/login - Вход
+##### GET /api/auth/me - Получение текущего пользователя
+
+#### Автомобили
+
+##### GET /api/cars - Получение списка с пагинацией
+##### GET /api/cars/:id - Получение одного автомобиля
+##### POST /api/cars - Создание автомобиля
+##### PUT /api/cars/:id - Обновление автомобиля
+##### DELETE /api/cars/:id - Удаление автомобиля
