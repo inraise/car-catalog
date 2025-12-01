@@ -73,6 +73,7 @@ Email: admin@admin.com
 Пароль: password123
 
 ### Структура проекта
+```
 car-catalog/
 ├── backend/              # Node.js + Express сервер
 │   ├── src/
@@ -90,6 +91,7 @@ car-catalog/
 │   │   └── types/       # TypeScript типы
 │   └── package.json
 └── package.json         # Корневой package.json
+```
 
 ### API Endpoints
 
