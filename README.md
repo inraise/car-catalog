@@ -73,23 +73,23 @@ Email: admin@admin.com
 Пароль: password123
 
 ### Структура проекта
-##### car-catalog/
-##### ├── backend/              # Node.js + Express сервер
-##### │   ├── src/
-##### │   │   ├── db/          # Конфигурация и миграции БД
-##### │   │   ├── middleware/  # Middleware (аутентификация)
-##### │   │   ├── routes/      # API маршруты
-##### │   │   └── types/       # TypeScript типы
-##### │   └── package.json
-##### ├── frontend/            # React приложение
-##### │   ├── src/
-##### │   │   ├── api/         # API клиенты
-##### │   │   ├── components/  # React компоненты
-##### │   │   ├── context/     # React контекст (Auth)
-##### │   │   ├── pages/       # Страницы приложения
-##### │   │   └── types/       # TypeScript типы
-##### │   └── package.json
-##### └── package.json         # Корневой package.json
+car-catalog/
+├── backend/              # Node.js + Express сервер
+│   ├── src/
+│   │   ├── db/          # Конфигурация и миграции БД
+│   │   ├── middleware/  # Middleware (аутентификация)
+│   │   ├── routes/      # API маршруты
+│   │   └── types/       # TypeScript типы
+│   └── package.json
+├── frontend/            # React приложение
+│   ├── src/
+│   │   ├── api/         # API клиенты
+│   │   ├── components/  # React компоненты
+│   │   ├── context/     # React контекст (Auth)
+│   │   ├── pages/       # Страницы приложения
+│   │   └── types/       # TypeScript типы
+│   └── package.json
+└── package.json         # Корневой package.json
 
 ### API Endpoints
 
