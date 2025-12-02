@@ -30,13 +30,13 @@
 ### 1. Клонирование и установка зависимостей
 
 #### Установите зависимости для всех проектов
-npm run install-all
+###### npm run install-all
 
 ### 2. Настройка базы данных PostgreSQL
 
 #### Установите PostgreSQL
 #### Создайте базу данных:
-CREATE DATABASE car_catalog;
+###### CREATE DATABASE car_catalog;
 
 #### Настройте подключение в файле .env
 ###### DB_HOST=localhost
@@ -52,7 +52,7 @@ CREATE DATABASE car_catalog;
 ###### npm run seed
 
 ### 4. Запуск приложения
-npm run dev
+###### npm run dev
 
 ### Приложение будет доступно:
 
@@ -63,11 +63,8 @@ npm run dev
 
 ##### После выполнения seed скрипта будут созданы два пользователя:
 
-###### Обычный пользователь:
-
 Email: test@test.com
 Пароль: password123
-###### Администратор:
 
 Email: admin@admin.com
 Пароль: password123
