@@ -1,12 +1,11 @@
 import axios from 'axios';
 
-// Для разработки - прямой доступ к backend на порту 5001
 const api = axios.create({
     baseURL: 'http://localhost:5001/api',
     headers: {
         'Content-Type': 'application/json',
     },
-    withCredentials: false, // Отключаем если не используем cookies
+    withCredentials: false,
 });
 
 // Интерцептор для логирования запросов

@@ -9,14 +9,12 @@ const seed = async () => {
         await query(`
       INSERT INTO users (email, password, name) 
       VALUES 
-        ('test@test.com', $1, 'Test User'),
-        ('admin@admin.com', $1, 'Admin')
+        ('test@test.com', $1, 'Test User')
       ON CONFLICT (email) DO NOTHING
     `, [hashedPassword]);
 
         // Тестовые автомобили
         const cars = [
-            // Данные из вашего JSON файла
             { brand: 'Toyota', model: 'Camry', year: 2018, price: 1650000, mileage: 89000, color: 'Black', vin: 'JTNB11HK8J3001234' },
             { brand: 'Toyota', model: 'RAV4', year: 2020, price: 2450000, mileage: 42000, color: 'White', vin: 'JTM6RFXV5L5012345' },
             { brand: 'Volkswagen', model: 'Passat', year: 2017, price: 1380000, mileage: 112000, color: 'Silver', vin: 'WVWZZZ3CZJE012346' },
@@ -47,9 +45,9 @@ const seed = async () => {
       `, [car.brand, car.model, car.year, car.price, car.mileage, car.color, car.vin]);
         }
 
-        console.log('✅ Тестовые данные добавлены');
+        console.log('Тестовые данные добавлены');
     } catch (error) {
-        console.error('❌ Ошибка при добавлении тестовых данных:', error);
+        console.error('Ошибка при добавлении тестовых данных:', error);
     } finally {
         process.exit();
     }

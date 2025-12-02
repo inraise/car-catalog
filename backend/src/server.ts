@@ -9,7 +9,7 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5001;
 
-// Детальные настройки CORS
+// Настройки CORS
 const corsOptions = {
     origin: 'http://localhost:3000',
     credentials: true,
@@ -26,7 +26,6 @@ app.options('*', cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Health check маршрут - ДОЛЖЕН БЫТЬ ПЕРВЫМ!
 app.get('/api/health', (req, res) => {
     res.json({
         status: 'ok',
@@ -40,7 +39,6 @@ app.get('/api/health', (req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/cars', carRoutes);
 
-// 404 обработка
 app.use((req, res) => {
     console.log(`404: ${req.method} ${req.originalUrl}`);
     res.status(404).json({
@@ -50,7 +48,6 @@ app.use((req, res) => {
     });
 });
 
-// Обработка ошибок
 app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
     console.error('Server error:', err.stack);
     res.status(500).json({
@@ -60,8 +57,7 @@ app.use((err: Error, req: express.Request, res: express.Response, next: express.
 });
 
 app.listen(PORT, () => {
-    console.log(`🚀 Сервер запущен на порту ${PORT}`);
-    console.log(`✅ CORS настроен для: http://localhost:3000`);
-    console.log(`📊 Health check: http://localhost:${PORT}/api/health`);
-    console.log(`🔑 API Base URL: http://localhost:${PORT}/api`);
+    console.log(`Сервер запущен на порту ${PORT}`);
+    console.log(`Health check: http://localhost:${PORT}/api/health`);
+    console.log(`API Base URL: http://localhost:${PORT}/api`);
 });

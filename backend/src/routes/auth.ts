@@ -1,7 +1,7 @@
 import express from 'express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { query } from '../db/db';
+import {query} from '../db/db';
 
 const router = express.Router();
 
@@ -14,14 +14,14 @@ router.use((req, res, next) => {
 // Регистрация
 router.post('/register', async (req, res) => {
     try {
-        const { email, password, name } = req.body;
+        const {email, password, name} = req.body;
 
-        console.log('Registration attempt:', { email, name });
+        console.log('Registration attempt:', {email, name});
 
         // Проверка существования пользователя
         const userExists = await query('SELECT * FROM users WHERE email = $1', [email]);
         if (userExists.rows.length > 0) {
-            return res.status(400).json({ error: 'Пользователь уже существует' });
+            return res.status(400).json({error: 'Пользователь уже существует'});
         }
 
         // Хеширование пароля
@@ -35,9 +35,9 @@ router.post('/register', async (req, res) => {
 
         // Генерация JWT токена
         const token = jwt.sign(
-            { userId: result.rows[0].id },
+            {userId: result.rows[0].id},
             process.env.JWT_SECRET!,
-            { expiresIn: '24h' }
+            {expiresIn: '24h'}
         );
 
         res.status(201).json({
@@ -46,14 +46,14 @@ router.post('/register', async (req, res) => {
         });
     } catch (error) {
         console.error('Registration error:', error);
-        res.status(500).json({ error: 'Ошибка сервера' });
+        res.status(500).json({error: 'Ошибка сервера'});
     }
 });
 
 // Логин
 router.post('/login', async (req, res) => {
     try {
-        const { email, password } = req.body;
+        const {email, password} = req.body;
 
         console.log('Login attempt:', email);
 
@@ -67,7 +67,7 @@ router.post('/login', async (req, res) => {
 
         if (!user) {
             console.log('User not found:', email);
-            return res.status(400).json({ error: 'Неверный email или пароль' });
+            return res.status(400).json({error: 'Неверный email или пароль'});
         }
 
         // Проверка пароля
@@ -75,14 +75,14 @@ router.post('/login', async (req, res) => {
         console.log('Password valid:', validPassword);
 
         if (!validPassword) {
-            return res.status(400).json({ error: 'Неверный email или пароль' });
+            return res.status(400).json({error: 'Неверный email или пароль'});
         }
 
         // Генерация JWT токена
         const token = jwt.sign(
-            { userId: user.id },
+            {userId: user.id},
             process.env.JWT_SECRET!,
-            { expiresIn: '24h' }
+            {expiresIn: '24h'}
         );
 
         console.log('Login successful for user:', user.email);
@@ -100,7 +100,7 @@ router.post('/login', async (req, res) => {
             message: error.message,
             stack: error.stack
         });
-        res.status(500).json({ error: 'Ошибка сервера' });
+        res.status(500).json({error: 'Ошибка сервера'});
     }
 });
 
@@ -111,7 +111,7 @@ router.get('/me', async (req, res) => {
         console.log('Auth header:', authHeader);
 
         if (!authHeader || !authHeader.startsWith('Bearer ')) {
-            return res.status(401).json({ error: 'Требуется авторизация' });
+            return res.status(401).json({error: 'Требуется авторизация'});
         }
 
         const token = authHeader.substring(7);
@@ -120,13 +120,13 @@ router.get('/me', async (req, res) => {
         const result = await query('SELECT id, email, name FROM users WHERE id = $1', [decoded.userId]);
 
         if (!result.rows[0]) {
-            return res.status(404).json({ error: 'Пользователь не найден' });
+            return res.status(404).json({error: 'Пользователь не найден'});
         }
 
-        res.json({ user: result.rows[0] });
+        res.json({user: result.rows[0]});
     } catch (error) {
         console.error('Get me error:', error);
-        res.status(401).json({ error: 'Неверный токен' });
+        res.status(401).json({error: 'Неверный токен'});
     }
 });
 

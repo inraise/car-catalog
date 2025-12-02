@@ -22,8 +22,3 @@ export interface PaginationData {
     total: number;
     totalPages: number;
 }
-
-export interface ApiResponse<T> {
-    data?: T;
-    error?: string;
-}

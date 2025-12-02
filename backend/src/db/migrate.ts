@@ -28,9 +28,9 @@ const migrate = async () => {
       )
     `);
 
-        console.log('✅ Таблицы созданы успешно');
+        console.log('Таблицы созданы успешно');
     } catch (error) {
-        console.error('❌ Ошибка при создании таблиц:', error);
+        console.error('Ошибка при создании таблиц:', error);
     } finally {
         process.exit();
     }
