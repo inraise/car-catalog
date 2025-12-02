@@ -107,15 +107,15 @@ const Cars: React.FC = () => {
     return (
         <div className="min-h-screen bg-gray-50">
             <nav className="bg-white shadow">
-                <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between h-16">
                         <div className="flex items-center">
-                            <h1 className="text-3xl font-semibold text-gray-800">Каталог автомобилей</h1>
+                            <h1 className="text-2xl font-semibold text-gray-800">Каталог автомобилей</h1>
                         </div>
                         <div className="flex items-center">
                             <button
                                 onClick={logout}
-                                className="ml-4 px-4 py-2 text-xl font-medium text-gray-700 hover:text-gray-900"
+                                className="ml-4 px-4 py-2 text-base font-medium text-gray-700 hover:text-gray-900"
                             >
                                 Выйти
                             </button>
@@ -124,15 +124,15 @@ const Cars: React.FC = () => {
                 </div>
             </nav>
 
-            <main className="max-w-[1500px] mx-auto py-6 sm:px-6 lg:px-8">
+            <main className="max-w-[1100px] mx-auto py-6 sm:px-6 lg:px-8">
                 <div className="px-4 py-6 sm:px-0">
                     <div className="mb-6">
                         <SearchBar onSearch={handleSearch} />
                         <div className="mt-4 flex justify-between items-center">
-                            <h2 className="text-2xl font-medium text-gray-900">Автомобили</h2>
+                            <h2 className="text-xl font-medium text-gray-900">Автомобили</h2>
                             <button
                                 onClick={handleCreate}
-                                className="btn btn-primary"
+                                className="btn btn-primary text-xs"
                             >
                                 Добавить автомобиль
                             </button>
