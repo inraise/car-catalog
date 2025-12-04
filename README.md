@@ -52,6 +52,10 @@
 ###### npm run seed
 
 ### 4. Запуск приложения
+###### cd backend
+###### npm run dev
+###### cd ..
+###### cd frontend
 ###### npm run dev
 
 ### Приложение будет доступно:
