@@ -51,10 +51,22 @@
 ### Все последующие разы
 ###### npm run dev
 
-### Приложение будет доступно:
+### Настройка переменных окружения
 
-##### Frontend: http://localhost:3000
-##### Backend API: http://localhost:5000
+##### Backend (.env)
+```
+NODE_ENV=development
+PORT=5000
+FRONTEND_URL=http://localhost:5173
+DATABASE_URL=postgresql://username:password@localhost:5432/car_catalog
+JWT_SECRET=your_super_secret_jwt_key_change_in_production
+JWT_EXPIRES_IN=7d
+BCRYPT_SALT_ROUNDS=12
+```
+##### Frontend (.env)
+```
+VITE_API_URL=http://localhost:5000/api
+```
 
 ### Тестовые пользователи
 
