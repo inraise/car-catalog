@@ -63,10 +63,6 @@ JWT_SECRET=your_super_secret_jwt_key_change_in_production
 JWT_EXPIRES_IN=7d
 BCRYPT_SALT_ROUNDS=12
 ```
-##### Frontend (.env)
-```
-VITE_API_URL=http://localhost:5000/api
-```
 
 ### Тестовые пользователи
 
