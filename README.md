@@ -36,11 +36,13 @@
 ###### CREATE DATABASE car_catalog;
 
 #### Настройте подключение в файле .env
-###### DB_HOST=localhost
-###### DB_PORT=5434
-###### DB_NAME=car_catalog
-###### DB_USER=ваш_логин
-###### DB_PASSWORD=ваш_пароль
+###### NODE_ENV=development
+###### PORT=5000
+###### FRONTEND_URL=http://localhost:5173
+###### DATABASE_URL=postgresql://username:password@localhost:5432/car_catalog
+###### JWT_SECRET=your_super_secret_jwt_key_change_in_production
+###### JWT_EXPIRES_IN=7d
+###### BCRYPT_SALT_ROUNDS=12
 
 ### 2. Установка + настройка БД + запуск
 
@@ -58,31 +60,32 @@
 
 ##### После выполнения seed скрипта будут созданы два пользователя:
 
-Email: test@test.com
+Email: admin@example.com
 Пароль: password123
 
-Email: admin@admin.com
+Email: user@example.com
 Пароль: password123
 
 ### Структура проекта
 ```
 car-catalog/
-├── backend/              # Node.js + Express сервер
+├── frontend/                 # React приложение
 │   ├── src/
-│   │   ├── db/          # Конфигурация и миграции БД
-│   │   ├── middleware/  # Middleware (аутентификация)
-│   │   ├── routes/      # API маршруты
-│   │   └── types/       # TypeScript типы
+│   │   ├── components/      # React компоненты
+│   │   ├── pages/          # Страницы приложения
+│   │   ├── contexts/       # React контексты
+│   │   ├── utils/          # Вспомогательные функции
+│   │   └── types/          # TypeScript типы
 │   └── package.json
-├── frontend/            # React приложение
+├── backend/                 # Node.js сервер
 │   ├── src/
-│   │   ├── api/         # API клиенты
-│   │   ├── components/  # React компоненты
-│   │   ├── context/     # React контекст (Auth)
-│   │   ├── pages/       # Страницы приложения
-│   │   └── types/       # TypeScript типы
+│   │   ├── controllers/    # Контроллеры
+│   │   ├── middleware/     # Промежуточное ПО
+│   │   ├── routes/         # Маршруты API
+│   │   ├── database/       # Конфигурация БД
+│   │   └── scripts/        # Скрипты миграций
 │   └── package.json
-└── package.json         # Корневой package.json
+└── package.json
 ```
 
 ### API Endpoints
