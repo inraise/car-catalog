@@ -56,15 +56,6 @@ docker run --name car-catalog-postgres \
 -d postgres:16-alpine
 ```
 
-#### Настройте подключение в файле .env
-###### NODE_ENV=development
-###### PORT=5000
-###### FRONTEND_URL=http://localhost:5173
-###### DATABASE_URL=postgresql://username:password@localhost:5432/car_catalog
-###### JWT_SECRET=your_super_secret_jwt_key_change_in_production
-###### JWT_EXPIRES_IN=7d
-###### BCRYPT_SALT_ROUNDS=12
-
 ### 3. Настройка окружения
 
 ###### backend/.env
