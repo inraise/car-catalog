@@ -2,14 +2,26 @@
   "name": "car-catalog",
   "version": "1.0.0",
   "scripts": {
-    "install-all": "npm install --prefix backend && npm install --prefix frontend",
-    "backend": "npm run dev --prefix backend",
-    "frontend": "npm run dev --prefix frontend",
-    "dev": "concurrently \"npm run backend\" \"npm run frontend\"",
-    "build": "npm run build --prefix backend && npm run build --prefix frontend"
+    "install:all": "npm install && cd backend && npm install && cd ../frontend && npm install",
+    "dev": "concurrently -n \"BACKEND,FRONTEND\" -c \"bgBlue.bold,bgGreen.bold\" \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "build": "cd backend && npm run build && cd ../frontend && npm run build",
+    "start": "cd backend && npm start",
+    "setup": "npm run install:all && cd backend && npm run db:setup",
+    "db:migrate": "cd backend && npm run migrate",
+    "db:seed": "cd backend && npm run seed",
+    "db:setup": "npm run db:migrate && npm run db:seed",
+    "prod:build": "npm run build",
+    "prod:start": "cd backend && NODE_ENV=production npm start",
+    "docker:build": "docker build -t car-catalog .",
+    "docker:run": "docker run -p 3000:3000 -p 5063:5063 car-catalog"
   },
   "devDependencies": {
-    "concurrently": "^8.2.0",
-    "ts-node": "^10.9.2"
+    "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
   }
 }

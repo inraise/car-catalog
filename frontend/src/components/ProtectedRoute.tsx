@@ -1,12 +1,12 @@
-import { Navigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import {Navigate} from 'react-router-dom';
+import {useAuth} from '../context/AuthContext';
 
 interface ProtectedRouteProps {
     children: React.ReactNode;
 }
 
-const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
-    const { user, isLoading } = useAuth();
+const ProtectedRoute: React.FC<ProtectedRouteProps> = ({children}) => {
+    const {user, isLoading} = useAuth();
 
     if (isLoading) {
         return (
@@ -17,7 +17,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
     }
 
     if (!user) {
-        return <Navigate to="/login" />;
+        return <Navigate to="/login"/>;
     }
 
     return <>{children}</>;

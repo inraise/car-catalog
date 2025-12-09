@@ -1,20 +1,36 @@
 import axios from 'axios';
 
+const getBaseURL = () => {
+    if (import.meta.env.PROD) {
+        return '/api';
+    }
+    const {hostname, protocol} = window.location;
+    const port = 5063;
+
+    if (hostname === 'localhost' || hostname === '127.0.0.1') {
+        return `http://localhost:${port}/api`;
+    }
+    return `${protocol}//${hostname}:${port}/api`;
+};
+
 const api = axios.create({
-    baseURL: 'http://localhost:5001/api',
+    baseURL: getBaseURL(),
     headers: {
         'Content-Type': 'application/json',
+        'Accept': 'application/json',
     },
     withCredentials: false,
+    timeout: 30000,
 });
 
-// Интерцептор для логирования запросов
 api.interceptors.request.use(
     (config) => {
-        console.log(`[API Request] ${config.method?.toUpperCase()} ${config.baseURL}${config.url}`);
         const token = localStorage.getItem('token');
         if (token) {
             config.headers.Authorization = `Bearer ${token}`;
+        }
+        if (import.meta.env.DEV) {
+            console.log(`[API Request] ${config.method?.toUpperCase()} ${config.baseURL}${config.url}`);
         }
         return config;
     },
@@ -24,27 +40,32 @@ api.interceptors.request.use(
     }
 );
 
-// Интерцептор для логирования ответов
 api.interceptors.response.use(
-    (response) => {
-        console.log(`[API Response] ${response.status} ${response.config.url}`);
-        return response;
-    },
+    (response) => response,
     (error) => {
-        console.error('[API Response Error]', {
-            url: error.config?.url,
-            status: error.response?.status,
-            message: error.response?.data?.error || error.message
-        });
+        const errorMessage = error.response?.data?.error || error.message || 'Ошибка сети';
 
+        // Автоматический редирект на логин при 401
         if (error.response?.status === 401) {
             localStorage.removeItem('token');
             localStorage.removeItem('user');
-            if (window.location.pathname !== '/login') {
+            // Не делаем редирект если уже на странице логина
+            if (!window.location.pathname.includes('/login')) {
                 window.location.href = '/login';
             }
         }
-        return Promise.reject(error);
+        if (import.meta.env.DEV) {
+            console.error('[API Response Error]', {
+                url: error.config?.url,
+                status: error.response?.status,
+                message: errorMessage
+            });
+        }
+        return Promise.reject({
+            message: errorMessage,
+            status: error.response?.status,
+            data: error.response?.data
+        });
     }
 );
 

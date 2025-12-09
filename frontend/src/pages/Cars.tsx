@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { useAuth } from '../context/AuthContext';
-import { carsAPI, type GetCarsParams } from '../api/cars';
+import React, {useState, useEffect, useCallback} from 'react';
+import {useAuth} from '../context/AuthContext';
+import {carsAPI, type GetCarsParams} from '../api/cars';
 import type {Car, PaginationData} from '../types';
 import CarTable from '../components/CarTable';
 import CarModal from '../components/CarModal';
@@ -8,7 +8,7 @@ import Pagination from '../components/Pagination';
 import SearchBar from '../components/SearchBar';
 
 const Cars: React.FC = () => {
-    const { logout } = useAuth();
+    const {logout} = useAuth();
     const [cars, setCars] = useState<Car[]>([]);
     const [pagination, setPagination] = useState<PaginationData>({
         page: 1,
@@ -52,7 +52,7 @@ const Cars: React.FC = () => {
     }, [fetchCars]);
 
     const handlePageChange = (page: number) => {
-        setPagination(prev => ({ ...prev, page }));
+        setPagination(prev => ({...prev, page}));
     };
 
     const handleSort = (column: string) => {
@@ -66,7 +66,7 @@ const Cars: React.FC = () => {
 
     const handleSearch = (term: string) => {
         setSearchTerm(term);
-        setPagination(prev => ({ ...prev, page: 1 }));
+        setPagination(prev => ({...prev, page: 1}));
     };
 
     const handleCreate = () => {
@@ -124,15 +124,15 @@ const Cars: React.FC = () => {
                 </div>
             </nav>
 
-            <main className="max-w-[1100px] mx-auto py-6 sm:px-6 lg:px-8">
-                <div className="px-4 py-6 sm:px-0">
+            <main className="w-[1100px] mx-auto py-6 sm:px-6 lg:px-8">
+                <div className="w-[1100px] px-4 py-2 sm:px-0">
                     <div className="mb-6">
-                        <SearchBar onSearch={handleSearch} />
+
                         <div className="mt-4 flex justify-between items-center">
-                            <h2 className="text-xl font-medium text-gray-900">Автомобили</h2>
+                            <SearchBar onSearch={handleSearch}/>
                             <button
                                 onClick={handleCreate}
-                                className="btn btn-primary text-xs"
+                                className="btn btn-primary text-sm h-[36px]"
                             >
                                 Добавить автомобиль
                             </button>
@@ -147,7 +147,8 @@ const Cars: React.FC = () => {
 
                     {loading ? (
                         <div className="text-center py-12">
-                            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+                            <div
+                                className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
                         </div>
                     ) : (
                         <>
@@ -159,7 +160,6 @@ const Cars: React.FC = () => {
                                 sortBy={sortBy}
                                 order={order}
                             />
-
                             <Pagination
                                 currentPage={pagination.page}
                                 totalPages={pagination.totalPages}
@@ -169,7 +169,6 @@ const Cars: React.FC = () => {
                     )}
                 </div>
             </main>
-
             <CarModal
                 isOpen={modalOpen}
                 onClose={() => setModalOpen(false)}

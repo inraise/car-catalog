@@ -1,16 +1,14 @@
-import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import React, {useState} from 'react';
+import {useNavigate, Link} from 'react-router-dom';
+import {useAuth} from '../context/AuthContext';
 
 const Login: React.FC = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-
-    const { login } = useAuth();
+    const {login} = useAuth();
     const navigate = useNavigate();
-
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setError('');
@@ -27,10 +25,10 @@ const Login: React.FC = () => {
     };
 
     return (
-        <div className="flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-md w-full space-y-8">
+        <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+            <div className="max-w-lg w-full space-y-8 p-10 rounded-xl shadow-blue-300 shadow-2xl">
                 <div>
-                    <h2 className="mt-6 text-center text-5xl font-extrabold text-gray-900">
+                    <h2 className="mt-6 text-center text-4xl font-extrabold text-gray-900">
                         Вход в систему
                     </h2>
                 </div>
@@ -52,7 +50,7 @@ const Login: React.FC = () => {
                                 required
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 text-xl"
+                                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 text-lg"
                                 placeholder="Email"
                             />
                         </div>
@@ -67,12 +65,11 @@ const Login: React.FC = () => {
                                 required
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 text-xl"
+                                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 text-lg"
                                 placeholder="Пароль"
                             />
                         </div>
                     </div>
-
                     <div>
                         <button
                             type="submit"
@@ -82,11 +79,10 @@ const Login: React.FC = () => {
                             {isLoading ? 'Вход...' : 'Войти'}
                         </button>
                     </div>
-
                     <div className="text-sm text-center">
                         <Link
                             to="/register"
-                            className="font-medium text-blue-600 hover:text-blue-500 text-xl"
+                            className="font-medium text-blue-600 hover:text-blue-500 text-lg"
                         >
                             Нет аккаунта? Зарегистрироваться
                         </Link>
@@ -96,5 +92,4 @@ const Login: React.FC = () => {
         </div>
     );
 };
-
 export default Login;

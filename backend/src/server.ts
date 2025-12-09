@@ -7,57 +7,86 @@ import carRoutes from './routes/cars';
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT || 5063;
+const NODE_ENV = process.env.NODE_ENV || 'development';
 
-// Настройки CORS
-const corsOptions = {
-    origin: 'http://localhost:3000',
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
-    exposedHeaders: ['Authorization']
+const getCorsOrigin = () => {
+    if (NODE_ENV === 'production') {
+        return process.env.FRONTEND_URL || 'http://localhost:3000';
+    }
+    return ['http://localhost:3000',
+        'http://localhost:5063',
+        'http://127.0.0.1:3000',
+        'http://192.168.0.102:3000',
+        'http://192.168.0.102:5063'];
 };
 
-app.use(cors(corsOptions));
+const corsOptions = {
+    origin: getCorsOrigin(),
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'Origin', 'X-Requested-With'],
+    exposedHeaders: ['Authorization'],
+    maxAge: 86400
+};
 
-// Обработка preflight запросов
+if (NODE_ENV === 'development') {
+    app.use((req, res, next) => {
+        console.log(`${new Date().toISOString()} ${req.method} ${req.originalUrl}`);
+        next();
+    });
+}
+
+app.use(cors(corsOptions));
 app.options('*', cors(corsOptions));
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({limit: '10mb'}));
+app.use(express.urlencoded({extended: true, limit: '10mb'}));
 
 app.get('/api/health', (req, res) => {
     res.json({
         status: 'ok',
         timestamp: new Date().toISOString(),
-        service: 'Car Catalog API',
-        version: '1.0.0'
+        environment: NODE_ENV,
+        corsOrigin: corsOptions.origin,
+        port: PORT
     });
 });
 
-// Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/cars', carRoutes);
 
-app.use((req, res) => {
-    console.log(`404: ${req.method} ${req.originalUrl}`);
+app.use('/api/*', (req, res) => {
     res.status(404).json({
-        error: 'Маршрут не найден',
+        error: 'API endpoint not found',
         path: req.originalUrl,
         method: req.method
     });
 });
 
+if (NODE_ENV === 'production') {
+    const path = require('path');
+
+    // Serve static files from frontend build
+    app.use(express.static(path.join(__dirname, '../../frontend/dist')));
+
+    // Handle SPA routing
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname, '../../frontend/dist/index.html'));
+    });
+}
+
 app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
     console.error('Server error:', err.stack);
     res.status(500).json({
-        error: 'Внутренняя ошибка сервера',
-        message: process.env.NODE_ENV === 'development' ? err.message : undefined
+        error: 'Internal server error',
+        message: NODE_ENV === 'development' ? err.message : undefined
     });
 });
 
 app.listen(PORT, () => {
-    console.log(`Сервер запущен на порту ${PORT}`);
-    console.log(`Health check: http://localhost:${PORT}/api/health`);
-    console.log(`API Base URL: http://localhost:${PORT}/api`);
+    console.log(`Server started on port ${PORT}`);
+    console.log(`Environment: ${NODE_ENV}`);
+    console.log(`CORS origin:`, corsOptions.origin);
+    console.log(`API available at: http://localhost:${PORT}/api`);
 });

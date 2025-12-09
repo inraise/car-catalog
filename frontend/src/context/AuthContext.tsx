@@ -1,6 +1,6 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, {createContext, useContext, useState, useEffect} from 'react';
 import type {User} from '../types';
-import { authAPI } from '../api/auth';
+import {authAPI} from '../api/auth';
 
 interface AuthContextType {
     user: User | null;
@@ -21,7 +21,7 @@ export const useAuth = () => {
     return context;
 };
 
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({children}) => {
     const [user, setUser] = useState<User | null>(null);
     const [token, setToken] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(true);
@@ -65,8 +65,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     };
 
     return (
-        <AuthContext.Provider value={{ user, token, login, register, logout, isLoading }}>
-    {children}
-    </AuthContext.Provider>
-);
+        <AuthContext.Provider value={{user, token, login, register, logout, isLoading}}>
+            {children}
+        </AuthContext.Provider>
+    );
 };
