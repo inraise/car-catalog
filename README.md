@@ -76,7 +76,7 @@ PORT=3000                          # Порт backend сервера для deve
 ###### npm run build - сборка проекта
 
 ###### npm run dev - development
-###### npm run prod - production
+###### npm start - production (или npm run prod) 
 
 ### Скрипты запуска
 
