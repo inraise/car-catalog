@@ -3,19 +3,20 @@
   "version": "1.0.0",
   "scripts": {
     "install:all": "npm install && cd backend && npm install && cd ../frontend && npm install",
-    "dev": "concurrently -n \"BACKEND,FRONTEND\" -c \"bgBlue.bold,bgGreen.bold\" \"npm run dev:backend\" \"npm run dev:frontend\"",
+
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
     "dev:backend": "cd backend && npm run dev",
     "dev:frontend": "cd frontend && npm run dev",
-    "build": "cd backend && npm run build && cd ../frontend && npm run build",
-    "start": "cd backend && npm start",
-    "setup": "npm run install:all && cd backend && npm run db:setup",
-    "db:migrate": "cd backend && npm run migrate",
-    "db:seed": "cd backend && npm run seed",
-    "db:setup": "npm run db:migrate && npm run db:seed",
-    "prod:build": "npm run build",
-    "prod:start": "cd backend && NODE_ENV=production npm start",
-    "docker:build": "docker build -t car-catalog .",
-    "docker:run": "docker run -p 3000:3000 -p 5063:5063 car-catalog"
+
+    "build": "npm run build:frontend && npm run build:backend",
+    "build:frontend": "cd frontend && npm run build",
+    "build:backend": "cd backend && npm run build",
+
+    "start": "cd backend && NODE_ENV=production npm start",
+
+    "db:setup": "cd backend && npm run db:setup",
+
+    "prod": "npm run build && npm start"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"

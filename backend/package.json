@@ -6,8 +6,7 @@
     "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js",
-    "migrate": "ts-node src/db/migrate.ts",
-    "seed": "ts-node src/db/seed.ts"
+    "db:setup": "npm run migrate && npm run seed"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -24,6 +23,7 @@
     "@types/jsonwebtoken": "^9.0.2",
     "@types/node": "^20.2.5",
     "@types/pg": "^8.10.2",
+    "next": "^16.0.8",
     "nodemon": "^2.0.22",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.0.4"

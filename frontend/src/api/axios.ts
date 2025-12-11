@@ -1,26 +1,11 @@
 import axios from 'axios';
 
-const getBaseURL = () => {
-    if (import.meta.env.PROD) {
-        return '/api';
-    }
-    const {hostname, protocol} = window.location;
-    const port = 5063;
-
-    if (hostname === 'localhost' || hostname === '127.0.0.1') {
-        return `http://localhost:${port}/api`;
-    }
-    return `${protocol}//${hostname}:${port}/api`;
-};
-
 const api = axios.create({
-    baseURL: getBaseURL(),
+    baseURL: '/api',
     headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
     },
     withCredentials: false,
-    timeout: 30000,
 });
 
 api.interceptors.request.use(
