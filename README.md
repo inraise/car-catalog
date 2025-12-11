@@ -60,22 +60,23 @@ docker run --name car-catalog-postgres \
 
 ###### backend/.env
 ```
-NODE_ENV=development
-PORT=5063
-HOST=localhost
-JWT_SECRET=your_super_secret_jwt_key_change_this
-JWT_EXPIRES_IN=24h
+NODE_ENV=production
+PORT=5063                          # Порт сервера для production 
+```
+
+```
+NODE_ENV=development               
+PORT=3000                          # Порт backend сервера для development 3000
 ```
 
 ### 4. Инициализация базы данных
 ###### npm run db:setup
 
 ### 5. Запуск приложения
-###### npm run dev
+###### npm run build - сборка проекта
 
-
-### Все последующие разы
-###### npm run dev
+###### npm run dev - development
+###### npm run prod - production
 
 ### Скрипты запуска
 
@@ -97,12 +98,6 @@ npm run prod:start
 
 # Настройка базы данных (таблицы + тестовые данные)
 npm run db:setup
-```
-
-### Для доступа из локальной сети
-```
-cd backend && HOST=0.0.0.0 PORT=5063 npm run dev
-cd frontend && npm run dev -- --host 0.0.0.0
 ```
 
 ### Тестовые пользователи
